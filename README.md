@@ -5,9 +5,7 @@ A **React-based cryptocurrency price chart** built with **Chart.js** and **Ant D
 ## ✨ Features
 
 ✅ Fetch and display historical crypto prices  
-✅ Interactive **line chart** with smooth transitions  
-✅ **Hover-following vertical line** to track price changes  
-✅ Custom **tooltips with formatted price values**  
+✅ Interactive **line chart** with smooth transitions
 ✅ Responsive and visually appealing design
 
 ## 🛠️ Technologies Used
@@ -15,7 +13,7 @@ A **React-based cryptocurrency price chart** built with **Chart.js** and **Ant D
 - **React.js** ⚛️
 - **Chart.js** 📊
 - **Ant Design (UI components)** 🎨
-- **Crypto API** (for fetching historical price data)
+- **Rapid API** (for fetching historical price data)
 
 ## 🚀 Setup & Installation
 
