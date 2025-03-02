@@ -13,7 +13,7 @@ A **React-based cryptocurrency price chart** built with **Chart.js** and **Ant D
 - **React.js** ⚛️
 - **Chart.js** 📊
 - **Ant Design (UI components)** 🎨
-- **Crypto API** (for fetching historical price data)
+- **Rapid API** (for fetching historical price data)
 
 ## 🚀 Setup & Installation
 
