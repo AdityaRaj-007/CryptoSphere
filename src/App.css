@@ -313,6 +313,7 @@ a:hover {
   color: black;
   margin: 10px 0px !important;
 }
+
 .provider-container {
   display: flex;
   justify-content: space-between;
@@ -355,6 +356,10 @@ a:hover {
 .exchange-image {
   margin: 0px 10px !important;
 }
+.exchange-div {
+  width: 10px;
+  height: 10px;
+}
 .search-crypto {
   margin: 20px auto 30px auto;
   width: 250px;
@@ -371,6 +376,20 @@ a:hover {
 .select-timeperiod {
   width: 200px !important;
   margin-top: 20px !important;
+}
+
+.news-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.news-image {
+  width: 100%; /* Ensures full width inside container */
+  height: 180px; /* Fixed height to keep consistency */
+  object-fit: cover; /* Prevents stretching and keeps aspect ratio */
+  border-radius: 8px; /* Optional: Adds rounded corners */
 }
 
 .footer {
