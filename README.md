@@ -44,10 +44,6 @@ The application should now be running on `http://localhost:3000/`.
 
 - **API Integration:** Ensure you have an API key from RapidAPI(Coinranking),CoinGecko and NewsAPI. Replace the API endpoint in the relevant files.
 
-## 📌 Future Enhancements
-
-🔹 Implement news updates for cryptocurrency
-
 ---
 
 **Made with ❤️ using React & Chart.js**
