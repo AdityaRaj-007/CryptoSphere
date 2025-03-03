@@ -7,13 +7,14 @@ A **React-based cryptocurrency price chart** built with **Chart.js** and **Ant D
 ✅ Fetch and display historical crypto prices  
 ✅ Interactive **line chart** with smooth transitions  
 ✅ Responsive and visually appealing design
+✅ Current News for each cryptocurrency
 
 ## 🛠️ Technologies Used
 
 - **React.js** ⚛️
 - **Chart.js** 📊
 - **Ant Design (UI components)** 🎨
-- **Rapid API** (for fetching historical price data)
+- **Rapid API,CoinGecko API, NewsAPI** (for fetching data)
 
 ## 🚀 Setup & Installation
 
@@ -42,7 +43,7 @@ The application should now be running on `http://localhost:3000/`.
 
 ## 🛠️ Configuration
 
-- **API Integration:** Ensure you have an API key from RapidAPI(Coinranking, Bing News). Replace the API endpoint in the relevant files.
+- **API Integration:** Ensure you have an API key from RapidAPI(Coinranking),CoinGecko and NewsAPI. Replace the API endpoint in the relevant files.
 
 ## 📌 Future Enhancements
 
