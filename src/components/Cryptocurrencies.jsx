@@ -2,29 +2,43 @@ import React, { useEffect, useState } from "react";
 import millify from "millify";
 import { Link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
-import { useGetCryptosQuery } from "../services/cryptoApi";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "./Loader";
+import { fetchCrypto } from "../services/cryptoApi";
 
 function Cryptocurrencies({ simplified }) {
-  const count = simplified ? 10 : 100;
-  const { data: cryptoList, isFetching } = useGetCryptosQuery(count);
+  const [count, setCount] = useState(simplified ? 10 : 100);
+  const dispatch = useDispatch();
+  const cryptoState = useSelector((state) => state.crypto);
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    // if (cryptoList?.data?.coins) {
-    //   setCryptos(cryptoList?.data?.coins);
-    // }
-    const filteredData = cryptoList?.data?.coins.filter((coin) =>
+    setCount(simplified ? 10 : 100);
+  }, [simplified]);
+
+  useEffect(() => {
+    console.log("Fetching with count:", count);
+    dispatch(fetchCrypto(count));
+  }, [dispatch, count]);
+
+  console.log("Simplified:", simplified);
+  console.log("Count:", count);
+  console.log(cryptoState);
+
+  const cryptoList = cryptoState.crypto;
+  const loading = cryptoState.loading;
+
+  useEffect(() => {
+    const filteredData = cryptoList?.coins.filter((coin) =>
       coin.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
     setCryptos(filteredData);
   }, [cryptoList, searchTerm]);
 
   console.log(cryptos);
 
-  if (isFetching) return <Loader />;
+  if (loading) return <Loader />;
   return (
     <>
       {!simplified && (

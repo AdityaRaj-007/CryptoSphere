@@ -1,17 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { cryptoApi } from "../services/cryptoApi";
+import { thunk } from "redux-thunk";
+import cryptoReducer from "../services/cryptoApi";
 import { cryptoNewsApi } from "../services/cryptoNewsApi";
 import { exchangesApi } from "../services/cryptoExchangesApi";
 
 export default configureStore({
   reducer: {
-    [cryptoApi.reducerPath]: cryptoApi.reducer,
+    crypto: cryptoReducer,
     [cryptoNewsApi.reducerPath]: cryptoNewsApi.reducer,
     [exchangesApi.reducerPath]: exchangesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
-      cryptoApi.middleware,
+      thunk,
       cryptoNewsApi.middleware,
       exchangesApi.middleware
     ),

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
@@ -15,30 +15,41 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 import {
+  fetchCryptoDetails,
+  fetchCryptoHistory,
   useGetCryptoDetailsQuery,
   useGetCryptoHistoryQuery,
 } from "../services/cryptoApi";
 import LineChart from "./LineChart";
 import Loader from "./Loader";
+import { useDispatch, useSelector } from "react-redux";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 function CryptoDetails() {
   const { coinId } = useParams();
+  const dispatch = useDispatch();
   const [timePeriod, setTimePeriod] = useState("7d");
-  const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
-  const { data: coinHistory } = useGetCryptoHistoryQuery({
-    coinId,
-    timePeriod,
-  });
+  // const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
+  // const { data: coinHistory } = useGetCryptoHistoryQuery({
+  //   coinId,
+  //   timePeriod,
+  // });
+  const { cryptoDetails, isLoading } = useSelector((state) => state.crypto);
+  const { coinHistory } = useSelector((state) => state.crypto);
 
-  if (isFetching) return <Loader />;
-  const cryptoDetails = data?.data?.coin;
+  useEffect(() => {
+    dispatch(fetchCryptoDetails(coinId));
+    dispatch(fetchCryptoHistory(coinId, timePeriod));
+  }, [dispatch, coinId, timePeriod]);
+
+  if (isLoading) return <Loader />;
+  //const cryptoDetails = data?.data?.coin;
 
   if (!cryptoDetails) return <p>No data available</p>;
 
-  console.log(data);
+  //console.log(data);
   console.log(cryptoDetails);
   console.log(coinHistory);
 

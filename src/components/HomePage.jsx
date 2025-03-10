@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import millify from "millify";
 import { Typography, Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
-import { useGetCryptosQuery } from "../services/cryptoApi";
+//import { useGetCryptosQuery } from "../services/cryptoApi";
 import Cryptocurrencies from "./Cryptocurrencies";
 import News from "./News";
 import Loader from "./Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCrypto } from "../services/cryptoApi";
 
 const { Title } = Typography;
 
 function HomePage() {
-  const { data, isFetching } = useGetCryptosQuery(10);
-  console.log(data);
-  const globalStats = data?.data?.stats;
+  //const { data, isFetching } = useGetCryptosQuery(10);
+  const dispatch = useDispatch();
+  const cryptoState = useSelector((state) => state.crypto);
 
-  if (isFetching) return <Loader />;
+  useEffect(() => {
+    dispatch(fetchCrypto(10));
+  }, [dispatch]);
+
+  const coins = cryptoState.crypto;
+
+  console.log(coins);
+  const globalStats = coins?.stats;
+
+  //if (loading) return <Loader />;
+  if (!globalStats) return <Loader />;
   return (
     <>
       <Title level={2} className="heading">
@@ -22,30 +34,33 @@ function HomePage() {
       </Title>
       <Row>
         <Col span={12}>
-          <Statistic title="Total Cryptocurrencies" value={globalStats.total} />
+          <Statistic
+            title="Total Cryptocurrencies"
+            value={globalStats.total ?? 0}
+          />
         </Col>
         <Col span={12}>
           <Statistic
             title="Total Exchanges"
-            value={millify(globalStats.totalExchanges)}
+            value={millify(globalStats.totalExchanges ?? 0)}
           />
         </Col>
         <Col span={12}>
           <Statistic
             title="Total Market Cap"
-            value={millify(globalStats.totalMarketCap) + "T"}
+            value={millify(globalStats.totalMarketCap ?? 0) + "T"}
           />
         </Col>
         <Col span={12}>
           <Statistic
             title="Total 24h Volume"
-            value={millify(globalStats.total24hVolume)}
+            value={millify(globalStats.total24hVolume ?? 0)}
           />
         </Col>
         <Col span={12}>
           <Statistic
             title="Total Markets"
-            value={millify(globalStats.totalMarkets)}
+            value={millify(globalStats.totalMarkets ?? 0)}
           />
         </Col>
       </Row>

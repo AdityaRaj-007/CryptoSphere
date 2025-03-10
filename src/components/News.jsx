@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Select, Row, Col, Typography, Avatar, Card } from "antd";
 import moment from "moment";
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
-import { useGetCryptosQuery } from "../services/cryptoApi";
+//import { useGetCryptosQuery } from "../services/cryptoApi";
 import Loader from "./Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCrypto } from "../services/cryptoApi";
 
 const demoImage =
   "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
@@ -12,13 +14,19 @@ const { Option } = Select;
 
 const News = ({ simplified }) => {
   const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
-  const { data } = useGetCryptosQuery(100);
+  //const { data } = useGetCryptosQuery(100);
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.crypto);
   const { data: cryptoNews } = useGetCryptoNewsQuery({
     newsCategory,
     count: simplified ? 6 : 12,
   });
 
   console.log(cryptoNews); // Check response structure
+
+  useEffect(() => {
+    dispatch(fetchCrypto(100));
+  }, [dispatch]);
 
   if (!cryptoNews?.articles) return <Loader />;
 
